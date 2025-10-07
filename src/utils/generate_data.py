@@ -18,10 +18,15 @@ import time
 from collections import Counter
 from datetime import datetime
 
-# Add the path to the parent directory
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from ecurve.secp256k1 import Secp256k1, TEST_PARAMS, LEGACY_PARAMS
+try:
+    # Add the path to the parent directory
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+    from ecurve.secp256k1 import Secp256k1, TEST_PARAMS, LEGACY_PARAMS  # type: ignore
+except Exception as exc:  # pragma: no cover
+    raise ImportError(
+        "Failed to import local 'secp256k1.py'. "
+        "Make sure the file is in the same directory."
+    ) from exc
 
 
 def _timestamp() -> str:

@@ -250,6 +250,7 @@ class Secp256k1:
         return f"{idx_x1y1_first}_{idx_x2y2_first}_{total_adds}_{idx_x2y2_last}"
 
     def generate_unique_keys(self, count, range_start, range_end):
+        """Generate a list of unique random integers within a specified range."""
         if self._curve.mode == "test":
             return random.sample(range(range_start, range_end), count)
         elif self._curve.mode == "legacy":
