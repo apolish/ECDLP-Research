@@ -30,6 +30,8 @@ ECDLP-Research/
 │   ├── instructions.txt                   # The instructions on how to generate or download existing data
 │   ├── key_list_data_20251002200628.csv   # CSV file with 1M keys written in topological key representation format
 │   ├── key_list_stats_20251002200628.txt  # A statistics file that includes statistics on topological groups by key
+│   ├── key_list_data_20251017195948.csv   # CSV file with 10M keys written in topological key representation format
+│   ├── key_list_stats_20251017195948.txt  # A statistics file that includes statistics on topological groups by key
 │   ├── ...
 │   └── ...
 └── docs/
