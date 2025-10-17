@@ -1,0 +1,135 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++ HOW TO GENERATE NEW DATA +++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+===========================================================================================
+Purpose
+===========================================================================================
+Generate a set of unique ECDSA private keys, compute a per-key “condition” from the key’s 
+topology, stream records to CSV, and write summary statistics. Please run the script 
+"../src/utils/generate_data.py" to generate data into local CSV file.
+
+CSV schema (semicolon-delimited):
+condition ; private_key ; subset_segments...
+
+'subset_segments' is a list of per-segment tokens formatted as x1_y1_x2_y2_x3_y3 for segments 
+whose flag equals 1.
+
+===========================================================================================
+Requirements
+===========================================================================================
+◾️Python 3.8+
+◾️Local module import: the script appends the parent directory to sys.path and imports 
+Secp256k1, TEST_PARAMS, LEGACY_PARAMS from ecurve/secp256k1.py. Keep that file at 
+../ecurve/secp256k1.py relative to this script, or set PYTHONPATH accordingly.
+
+===========================================================================================
+Synopsis
+===========================================================================================
+
+python generate_data.py \
+  --curve_mode {test,legacy} \
+  --total_keys INT \
+  --range_start INT \
+  --data_out PATH \
+  --stats_out PATH \
+  --filter_condition STR \
+  --top_key_count INT \
+  --seed INT \
+  [--no_progress]
+
+===========================================================================================
+Parameters
+===========================================================================================
+--curve_mode {test,legacy}
+Select curve parameters set. test = small synthetic curve. legacy = secp256k1.
+
+--total_keys INT
+Number of unique private keys to generate. Default: 1_000_000.
+
+--range_start INT
+Inclusive start of the private-key range. End is fixed at n-1 for the chosen curve.
+If range_start >= n-1, the script raises ValueError.
+
+--data_out PATH
+Output CSV path. If empty, an auto name is used: key_list_data_YYYYMMDDHHMMSS.csv.
+
+--stats_out PATH
+Output TXT with statistics. If empty, auto name: key_list_stats_YYYYMMDDHHMMSS.txt.
+
+--filter_condition STR
+If set, only rows whose condition equals this exact string are written to the CSV.
+All keys still contribute to the statistics.
+
+--top_key_count INT
+Number of top conditions to compute coverage for in the stats. Default: 2000.
+
+--seed INT
+Optional RNG seed for reproducible key sampling. Omit to get different data each run.
+
+--no_progress
+Disable the console progress indicator.
+
+===========================================================================================
+Outputs
+===========================================================================================
+CSV: one row per generated key that passes the optional filter.
+Columns: condition ; private_key ; segment_1 ; segment_2 ; ...
+
+Stats TXT:
+
+◾️Sorted list of condition count
+◾️Top <top_key_count> conditions cover <pct>% from all keys!
+◾️Totals: unique condition count, key count, whether any CSV records were written
+◾️Elapsed time
+
+Console prints absolute paths to both files on completion.
+
+===========================================================================================
+Progress behavior
+===========================================================================================
+A single-line counter updates roughly every 1% of progress. Use --no_progress to suppress.
+
+===========================================================================================
+Examples
+===========================================================================================
+
+Generate 10k test-curve keys with fixed seed and explicit output paths:
+
+python generate_data.py \
+  --curve_mode test \
+  --total_keys 10000 \
+  --range_start 1000 \
+  --data_out data.csv \
+  --stats_out stats.txt \
+  --seed 42
+
+Write only rows for a specific condition, still compute full stats:
+
+python generate_data.py \
+  --curve_mode test \
+  --total_keys 50000 \
+  --range_start 1 \
+  --filter_condition 1_2_5_7
+
+Use secp256k1 parameters, default auto-named outputs:
+
+python generate_data.py \
+  --curve_mode legacy \
+  --total_keys 100000 \
+  --range_start 1
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++ HOW TO DOWNLOAD EXISTING DATA ++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Please download existing data from the author's Google Drive using the following shared 
+links:
+
+(data only for test elliptic curve)
+
+File: "key_list_data_20251002200628.csv"
+Link: https://drive.google.com/file/d/1D9MfRKiv1DcXstGQLGeq_HJJ1OurZFPB/view?usp=sharing
+
+File: "key_list_stats_20251002200628.txt"
+Link: https://drive.google.com/file/d/1WPN2dHKD-ghXeGTxN6hz3fOz89qkj0Sq/view?usp=sharing
