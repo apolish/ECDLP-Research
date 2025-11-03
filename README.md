@@ -15,27 +15,28 @@ ECDLP-Research/
 ├── LICENSE
 ├── src/
 |   ├── ecurve/
-│   │   ├── find_curve.sage                # Script to find test elliptic curve parameters
-│   │   ├── secp256k1.py                   # Advanced script to generate pairs of keys with private key topology based on 'secp256k1'
-│   │   └── secp256k1.txt                  # The result of the work 'secp256k1.py' script
+│   │   ├── find_curve.sage                  # Script to find test elliptic curve parameters
+│   │   ├── secp256k1.py                     # Advanced script to generate pairs of keys with private key topology based on 'secp256k1'
+│   │   └── secp256k1.txt                    # The result of the work 'secp256k1.py' script
 |   ├── models/
-│   │   ├── description.txt                # ML/DL model list description
+│   │   ├── description.txt                  # ML/DL model list description
 │   │   ├── ...
 │   │   └── ...
 |   ├── utils/
-│   │   ├── generate_data.py               # Script to generate data into local CSV file
+│   │   ├── generate_data.py                 # Script to generate data into local CSV file
 │   │   ├── ...
 │   │   └── ...
 ├── data/
-│   ├── instructions.txt                   # The instructions on how to generate or download existing data
-│   ├── key_list_data_20251002200628.csv   # CSV file with 1M keys written in topological key representation format
-│   ├── key_list_stats_20251002200628.txt  # A file that includes statistics on topological groups by key for 1M keys
-│   ├── key_list_data_20251017195948.csv   # CSV file with 10M keys written in topological key representation format
-│   ├── key_list_stats_20251017195948.txt  # A file that includes statistics on topological groups by key for 10M keys
+│   ├── instructions.txt                     # The instructions on how to generate or download existing data
+│   ├── key_list_data_20251002200628.csv     # CSV file with 1M keys written in topological key representation format
+│   ├── key_list_stats_20251002200628.txt    # A file that includes statistics on topological groups by key for 1M keys
+│   ├── key_list_data_20251017195948.csv     # CSV file with 10M keys written in topological key representation format
+│   ├── key_list_stats_20251017195948.txt    # A file that includes statistics on topological groups by key for 10M keys
 │   ├── ...
 │   └── ...
 └── docs/
-    ├── description.txt                    # Document list description
+    ├── description.txt                      # Document list description
+    ├── Approach_assessment_by_ChatGPT5.pdf  # A document to evaluate the approach (private key topological structure usage in ML/DL).
     ├── ...
     └── ...
 ```
