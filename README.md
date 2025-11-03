@@ -53,24 +53,6 @@ https://doi.org/10.21203/rs.3.rs-6790872/v1
 
 Released under MIT License (see LICENSE file).
 
-## 🚀 Quick Start
-
-Clone the repository and run the transaction generator:
-
-HTTPS:
-
-```bash
-git clone https://github.com/YOUR_USERNAME/ECDLP-Research.git
-cd ECDLP-Research/
-```
-
-SSH:
-
-```bash
-git clone git@github.com:YOUR_USERNAME/ECDLP-Research.git
-cd ECDLP-Research/
-```
-
 ## 🔍 Project on JIRA
 
 Tracking and monitoring tasks related to the current project can be found here:
