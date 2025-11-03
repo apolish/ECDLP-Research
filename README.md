@@ -2,7 +2,7 @@
 
 ## 🔍 Overview
 
-This work explores the possibility of completely inverting the private key based on the public key and the available probabilistic topology of the private key, which should enable the algorithmic recovery of private keys in polynomial time.
+This work investigates the possibility of full private key inversion based on the public key and the available probabilistic private key topology, which should provide algorithmic recovery of private keys in polynomial time. This research employs hybrid approaches that combine ML/DL and advanced number theory and modular arithmetic to operate in the space of modular residues.
 
 NOTICE!
 This work is in the stage of active development and research; therefore, some sections of this repository are incomplete, and documentation may be unavailable at this stage.
@@ -19,7 +19,7 @@ ECDLP-Research/
 │   │   ├── secp256k1.py                   # Advanced script to generate pairs of keys with private key topology based on 'secp256k1'
 │   │   └── secp256k1.txt                  # The result of the work 'secp256k1.py' script
 |   ├── models/
-│   │   ├── description.txt                # ML model list description
+│   │   ├── description.txt                # ML/DL model list description
 │   │   ├── ...
 │   │   └── ...
 |   ├── utils/
@@ -29,9 +29,9 @@ ECDLP-Research/
 ├── data/
 │   ├── instructions.txt                   # The instructions on how to generate or download existing data
 │   ├── key_list_data_20251002200628.csv   # CSV file with 1M keys written in topological key representation format
-│   ├── key_list_stats_20251002200628.txt  # A statistics file that includes statistics on topological groups by key
+│   ├── key_list_stats_20251002200628.txt  # A file that includes statistics on topological groups by key for 1M keys
 │   ├── key_list_data_20251017195948.csv   # CSV file with 10M keys written in topological key representation format
-│   ├── key_list_stats_20251017195948.txt  # A statistics file that includes statistics on topological groups by key
+│   ├── key_list_stats_20251017195948.txt  # A file that includes statistics on topological groups by key for 10M keys
 │   ├── ...
 │   └── ...
 └── docs/
@@ -57,8 +57,17 @@ Released under MIT License (see LICENSE file).
 
 Clone the repository and run the transaction generator:
 
+HTTPS:
+
 ```bash
 git clone https://github.com/YOUR_USERNAME/ECDLP-Research.git
+cd ECDLP-Research/
+```
+
+SSH:
+
+```bash
+git clone git@github.com:YOUR_USERNAME/ECDLP-Research.git
 cd ECDLP-Research/
 ```
 
