@@ -139,3 +139,9 @@ File: "key_list_data_20251017195948.csv"
 Link: https://drive.google.com/file/d/1o4WhpC1cG3l2wIXZXagY1UM6vU2Cfcuf/view?usp=drive_link
 File: "key_list_stats_20251017195948.txt"
 Link: https://drive.google.com/file/d/12GbLfg3M8MGWVOkXXkSlHzrw3Vda9X3R/view?usp=drive_link
+
+File 3 (1629371 keys for specific condition 1_2_15_30)
+File: "key_list_data_20251104113433.csv"
+Link: https://drive.google.com/file/d/11FvqALZfXOy5X2_pUwHVh0P_qBzd6beo/view?usp=drive_link
+File: "key_list_stats_20251104113433.txt"
+Link: https://drive.google.com/file/d/1XNUaAsdfeVo8GgJK2qpSQ5vIu4zIB10_/view?usp=drive_link
