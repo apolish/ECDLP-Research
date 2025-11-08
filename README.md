@@ -38,7 +38,8 @@ ECDLP-Research/
 │   └── ...
 └── docs/
     ├── description.txt                      # Document list description
-    ├── Approach_assessment_by_ChatGPT5.pdf  # A document to evaluate the approach (private key topological structure usage in ML/DL).
+    ├── Approach_assessment_by_ChatGPT5.pdf  # A document to evaluate the approach (private key topological structure usage in ML/DL) with ChatGPT5.
+    ├── Approach_assessment_by_Grok4.pdf     # A document to evaluate the approach (private key topological structure usage in ML/DL) with Grok4.
     ├── ...
     └── ...
 ```
