@@ -56,6 +56,106 @@ LEGACY_PARAMS = CurveParams(
 )
 
 
+def encode_varint(i: int) -> bytes:
+    """Bitcoin varint encoding."""
+    if i < 0xfd:
+        return i.to_bytes(1, "little")
+    if i <= 0xffff:
+        return b"\xfd" + i.to_bytes(2, "little")
+    if i <= 0xffffffff:
+        return b"\xfe" + i.to_bytes(4, "little")
+    return b"\xff" + i.to_bytes(8, "little")
+
+
+def compress_public_key(pub: Tuple[int, int]) -> bytes:
+    """Return compressed SEC representation of a public key (33 bytes)."""
+    x, y = pub
+    prefix = 0x02 | (y & 1)
+    return bytes([prefix]) + x.to_bytes(32, "big")
+
+
+def hash160(data: bytes) -> bytes:
+    """RIPEMD160(SHA256(data)) – Bitcoin HASH160."""
+    sha = hashlib.sha256(data).digest()
+    ripe = hashlib.new("ripemd160", sha).digest()
+    return ripe
+
+
+def make_bitcoin_legacy_sighash_message(public_key: Tuple[int, int]) -> bytes:
+    """
+    Build a Bitcoin legacy SIGHASH_ALL preimage for a simple 1-in-1-out P2PKH transaction.
+    This is an illustrative canonical example used for signing on the real secp256k1 curve.
+    """
+    # Version
+    version = (1).to_bytes(4, "little")
+
+    # Compressed public key and HASH160
+    compressed_pub = compress_public_key(public_key)
+    pubkey_hash = hash160(compressed_pub)
+
+    # Standard P2PKH scriptPubKey: OP_DUP OP_HASH160 PUSH20 <hash> OP_EQUALVERIFY OP_CHECKSIG
+    script_pubkey = (
+        b"\x76"          # OP_DUP
+        b"\xa9"          # OP_HASH160
+        b"\x14"          # PUSH 20
+        + pubkey_hash +
+        b"\x88"          # OP_EQUALVERIFY
+        b"\xac"          # OP_CHECKSIG
+    )
+
+    # For legacy SIGHASH_ALL preimage, scriptCode = scriptPubKey of the UTXO being spent
+    script_code = script_pubkey
+
+    # One input
+    input_count = encode_varint(1)
+
+    prev_txid = b"\x00" * 32          # dummy prev txid (little-endian)
+    prev_index = (0).to_bytes(4, "little")
+
+    script_code_len = encode_varint(len(script_code))
+    sequence = (0xFFFFFFFF).to_bytes(4, "little")
+
+    tx_in = (
+        prev_txid +
+        prev_index +
+        script_code_len +
+        script_code +
+        sequence
+    )
+
+    # One output
+    output_count = encode_varint(1)
+
+    # Example value: 50 BTC in satoshi (arbitrary but realistic)
+    value_sats = 50_0000_0000
+    value = value_sats.to_bytes(8, "little")
+
+    script_pubkey_len = encode_varint(len(script_pubkey))
+
+    tx_out = (
+        value +
+        script_pubkey_len +
+        script_pubkey
+    )
+
+    # Locktime and SIGHASH type
+    locktime = (0).to_bytes(4, "little")
+    sighash_all = (1).to_bytes(4, "little")  # SIGHASH_ALL = 0x00000001
+
+    # Final preimage
+    preimage = (
+        version +
+        input_count +
+        tx_in +
+        output_count +
+        tx_out +
+        locktime +
+        sighash_all
+    )
+
+    return preimage
+
+
 class Secp256k1:
     """Elliptic curve cryptography implementation for secp256k1."""
 
@@ -159,7 +259,10 @@ class Secp256k1:
         """Return integer hash of a message modulo curve order."""
         if self._curve.mode == "test":
             return random.randrange(1, self._curve.n - 1)
-        return int.from_bytes(hashlib.sha256(message).digest(), "big") % self._curve.n
+        # legacy / real secp256k1: use Bitcoin-style double SHA256
+        h = hashlib.sha256(message).digest()
+        h = hashlib.sha256(h).digest()
+        return int.from_bytes(h, "big") % self._curve.n
 
     def sign_message(self, private_key: int, message: bytes) -> Tuple[int, int, int]:
         """Create ECDSA signature for a message using private key."""
@@ -292,7 +395,12 @@ def print_curve_run(curve: CurveParams, private_key: Optional[int] = None) -> No
     print(f"Spent time: {time.time() - t0:.3f} sec.\n")
 
     t0 = time.time()
-    message = b"Hello, secp256k1!"
+    if curve.mode == "legacy":
+        # For real secp256k1 use a Bitcoin legacy SIGHASH_ALL preimage (1-in-1-out P2PKH)
+        message = make_bitcoin_legacy_sighash_message(public_key)
+    else:
+        # For test curves we keep an arbitrary message; z is randomized in hash_message
+        message = b"Hello, secp256k1!"
     signature = ec.sign_message(private_key, message)
     print("Signature parameters:")
     print(f"  z: {hex(signature[0])[2:]}, {signature[0]}")
