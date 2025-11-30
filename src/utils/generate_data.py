@@ -130,7 +130,7 @@ def parse_args():
     )
     p.add_argument("--curve_mode", type=str, default="test")
     p.add_argument("--total_keys", type=int, default=1_000_000)
-    p.add_argument("--range_start", type=int, default=10_000_000)
+    p.add_argument("--range_start", type=int, default=1)
     p.add_argument("--data_out", type=str, default="")
     p.add_argument("--stats_out", type=str, default="")
     p.add_argument("--filter_condition", type=str, default=None)
