@@ -2,7 +2,7 @@
 
 ## 🔍 Overview
 
-This work investigates the possibility of full private key inversion based on the public key and the available probabilistic private key topology, which should provide algorithmic recovery of private keys in polynomial time. This research employs hybrid approaches that combine ML/DL and advanced number theory and modular arithmetic to operate in the space of modular residues.
+This work investigates the possibility of fully inverting a private key from a public key using an available probabilistic private-key topology that supports bidirectional inversion. The study uses machine learning and deep learning to discover hidden meta-invariants based on the topological structure of the private key.
 
 NOTICE!
 This work is in the stage of active development and research; therefore, some sections of this repository are incomplete, and documentation may be unavailable at this stage.
@@ -63,4 +63,4 @@ Tracking and monitoring tasks related to the current project can be found here:
 
 [![Go to JIRA](https://img.shields.io/badge/JIRA-Visit-blue)](https://cryptonsystemslab.atlassian.net/jira/core/projects/CSL/board?filter=&groupBy=status&atlOrigin=eyJpIjoiZWYwNGI4ODlhYmZjNDdkNGIwMGM3NWUwNzk0MTBjNGYiLCJwIjoiaiJ9)
 
-### STATUS: Research officially suspended. The current repository is not active!
+### STATUS: Active
