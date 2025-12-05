@@ -479,7 +479,7 @@ def print_curve_run(curve: CurveParams, private_key: Optional[int] = None) -> No
 def main() -> None:
     """Run demo for both test and legacy curves."""
     print("========== TEST CURVE ==========")
-    print_curve_run(TEST_PARAMS, 950441759)
+    print_curve_run(TEST_PARAMS, 1180926333)
 
     print("========== LEGACY CURVE ==========")
     print_curve_run(LEGACY_PARAMS)
