@@ -18,27 +18,21 @@ ECDLP-Research/
 │   │   ├── find_curve.sage                  # Script to find test elliptic curve parameters
 │   │   ├── secp256k1.py                     # Advanced script to generate pairs of keys with private key topology based on 'secp256k1'
 │   │   └── secp256k1.txt                    # The result of the work 'secp256k1.py' script
-|   ├── models/
-│   │   ├── description.txt                  # ML/DL model list description
-│   │   ├── ...
-│   │   └── ...
+|   ├── kuggle/                              # ML/DL models, datasets, experimental notebooks for Kaggle environment
 |   ├── utils/
 │   │   ├── generate_data.py                 # Script to generate data into local CSV file
+│   │   ├── restore_private_key.py           # Script for private key restoring based on the hidden added points chain from the topology
+│   │   ├── instructions.txt                 # Instructions on how to use the scripts from the 'utils' folder
 │   │   ├── ...
 │   │   └── ...
 ├── data/
-│   ├── instructions.txt                     # The instructions on how to generate or download existing data
-│   ├── key_list_data_20251002200628.csv     # CSV file with 1M keys written in topological key representation format
-│   ├── key_list_stats_20251002200628.txt    # A file that includes statistics on topological groups by key for 1M keys
-│   ├── key_list_data_20251017195948.csv     # CSV file with 10M keys written in topological key representation format
-│   ├── key_list_stats_20251017195948.txt    # A file that includes statistics on topological groups by key for 10M keys
-│   ├── key_list_data_20251104113433.csv     # CSV file with 10M keys written in topological key representation format (for specific condition 1_2_15_30)
-│   ├── key_list_stats_20251104113433.txt    # A file that includes statistics on topological groups by key for 10M keys (for specific condition 1_2_15_30)
+│   ├── key_list_stats_20251215142747.txt    # A file that includes statistics for 100K keys based on legacy curve (generated on Local env)
+│   ├── key_list_stats_20251215150040.txt    # A file that includes statistics for 100K keys based on legacy curve (generated on Kaggle env)
+│   ├── key_list_stats_20251215153252.txt    # A file that includes statistics for 100K keys based on test curve (generated on Kaggle env)
+│   ├── key_list_stats_20251215173203.txt    # A file that includes statistics for 100K keys based on test curve (generated on Local env)
 │   ├── ...
 │   └── ...
 └── docs/
-    ├── description.txt                      # Document list description
-    ├── Assessment of the approach.pdf       # Assessment of the approach for using topological structure of private key
     ├── ...
     └── ...
 ```

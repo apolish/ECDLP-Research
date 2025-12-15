@@ -1,5 +1,0 @@
-Document list
-
-1.
-Document name: "Approach_assessment_by_ChatGPT5.pdf"
-Description: A short description of the assessment provided by ChatGPT5 regarding a promising approach to using a topological private key structure in machine learning to solve ECDLP.
