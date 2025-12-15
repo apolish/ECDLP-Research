@@ -106,7 +106,16 @@ def generate_dataset(
     coverage_ratio = covered / total_keys if total_keys else 1.0
 
     with open(stats_out, mode="w", encoding="utf-8") as f_stats:
-        f_stats.write("Statistics:\nListed the conditions based on the topology of keys:\n")
+        f_stats.write("Elliptic curve parameters:\n")
+        f_stats.write(f"name = {secp256k1.curve.name}\n")
+        f_stats.write(f"mode = {secp256k1.curve.mode}\n")
+        f_stats.write(f"p = {secp256k1.curve.p}\n")
+        f_stats.write(f"a = {secp256k1.curve.a}\n")
+        f_stats.write(f"b = {secp256k1.curve.b}\n")
+        f_stats.write(f"g = {secp256k1.curve.g}\n")
+        f_stats.write(f"n = {secp256k1.curve.n}\n")
+        f_stats.write("\n")
+        f_stats.write("Grouped key count by conditions:\n")
         for cond, cnt in sorted_counts:
             f_stats.write(f"{cond} {cnt}\n")
         f_stats.write("\n")
@@ -129,12 +138,12 @@ def parse_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     p.add_argument("--curve_mode", type=str, default="test")
-    p.add_argument("--total_keys", type=int, default=1_000_000)
+    p.add_argument("--total_keys", type=int, default=100_000)
     p.add_argument("--range_start", type=int, default=1)
     p.add_argument("--data_out", type=str, default="")
     p.add_argument("--stats_out", type=str, default="")
     p.add_argument("--filter_condition", type=str, default=None)
-    p.add_argument("--top_key_count", type=int, default=2000)
+    p.add_argument("--top_key_count", type=int, default=5000)
     p.add_argument("--seed", type=int, default=None)
     p.add_argument("--no_progress", action="store_true")
     return p.parse_args()

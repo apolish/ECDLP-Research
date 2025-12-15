@@ -1,4 +1,2 @@
 *.csv
-key_list_stats_*.txt
 __pycache__/
-*.ipynb
