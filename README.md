@@ -23,6 +23,7 @@ ECDLP-Research/
 │   │   ├── generate_data.py                 # Script to generate data into local CSV file
 │   │   ├── restore_private_key.py           # Script for private key restoring based on the hidden added points chain from the topology
 │   │   ├── instructions.txt                 # Instructions on how to use the scripts from the 'utils' folder
+│   │   ├── generate_private_key.py          # Script for generating private key based on multi-source entropy
 │   │   ├── ...
 │   │   └── ...
 ├── data/

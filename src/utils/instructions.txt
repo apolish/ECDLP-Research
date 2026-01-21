@@ -27,9 +27,27 @@ Result:
 Processed: 100000/100000 (100.0%)
 Done. Data: ..\key_list_data_20251215153252.csv | Stats: ..\key_list_stats_20251215153252.txt
 
-3. Generating data for legacy curve.
+4. Generating data for legacy curve.
 Execute
 python generate_data.py --curve_mode legacy
 Result:
 Processed: 100000/100000 (100.0%)
 Done. Data: ..\key_list_data_20251215142747.csv | Stats: ..\key_list_stats_20251215142747.txt
+
+5. Generating private key based on multi-source entropy for legacy curve.
+Execute
+python generate_private_key.py --curve_mode legacy
+Result:
+Elliptic curve mode:   legacy
+Curve order (n):       115792089237316195423570985008687907852837564279074904382605163141518161494337
+Private key (int):     9789026173062523392561134733860923824674283821211355339995553613594648321928
+Private key (hex):     15a46478e754bac40ba4f7bb6474feadba0feda31914e5f8c6835211b6631f88
+
+6. Generating private key based on multi-source entropy for test curve.
+Execute
+python generate_private_key.py --curve_mode test
+Result:
+Elliptic curve mode:   test
+Curve order (n):       1241630743
+Private key (int):     996434539
+Private key (hex):     3b64626b
