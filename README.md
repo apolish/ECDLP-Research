@@ -24,6 +24,7 @@ ECDLP-Research/
 │   │   ├── restore_private_key.py           # Script for private key restoring based on the hidden added points chain from the topology
 │   │   ├── instructions.txt                 # Instructions on how to use the scripts from the 'utils' folder
 │   │   ├── generate_private_key.py          # Script for generating private key based on multi-source entropy
+│   │   ├── topology_counter.py              # Script for counting unique topologies defined by parameters (a, b, c, d)
 │   │   ├── ...
 │   │   └── ...
 ├── data/
