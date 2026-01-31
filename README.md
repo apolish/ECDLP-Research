@@ -23,15 +23,14 @@ ECDLP-Research/
 │   │   ├── generate_data.py                  # Script to generate data into local CSV file
 │   │   ├── restore_private_key.py            # Script for private key restoring based on the hidden added points chain from the topology
 │   │   ├── instructions.txt                  # Instructions on how to use the scripts from the 'utils' folder
-│   │   ├── generate_private_key.py           # Script for generating private key based on multi-source entropy
 │   │   ├── topology_counter.py               # Script for counting unique topologies defined by parameters (a, b, c, d)
 │   │   ├── ...
 │   │   └── ...
 ├── data/
-│   ├── key_list_stats_20251215142747.txt     # A file that includes statistics for 100K keys based on legacy curve (generated on Local env)
-│   ├── key_list_stats_20251215150040.txt     # A file that includes statistics for 100K keys based on legacy curve (generated on Kaggle env)
-│   ├── key_list_stats_20251215153252.txt     # A file that includes statistics for 100K keys based on test curve (generated on Kaggle env)
-│   ├── key_list_stats_20251215173203.txt     # A file that includes statistics for 100K keys based on test curve (generated on Local env)
+│   ├── key_list_stats_20260131200024.txt     # A file that includes statistics for 100K keys based on legacy curve (generated on Local env)
+│   ├── key_list_stats_20260131204250.txt     # A file that includes statistics for 1M keys based on test curve (generated on Local env)
+│   ├── key_list_stats_20260131191955.txt     # A file that includes statistics for 100K keys based on legacy curve (generated on Kaggle env)
+│   ├── key_list_stats_20260131191633.txt     # A file that includes statistics for 1M keys based on test curve (generated on Kaggle env)
 │   ├── ...
 │   └── ...
 └── docs/

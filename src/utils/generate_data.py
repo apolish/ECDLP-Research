@@ -12,7 +12,6 @@ where 'subset_segments' — list of segments through «;».
 import argparse
 import csv
 import os
-import random
 import sys
 import time
 from collections import Counter
@@ -46,29 +45,20 @@ def _progress(i: int, total: int):
 def generate_dataset(
     curve_mode: str,
     total_keys: int,
-    range_start: int,
     data_out: str,
     stats_out: str,
     filter_condition: str,
     top_key_count: int,
-    seed: int,
     show_progress: bool,
 ):
     t0 = time.time()
-
-    if seed is not None:
-        random.seed(seed)
 
     if curve_mode == "test":
         secp256k1 = Secp256k1(TEST_PARAMS)
     else:
         secp256k1 = Secp256k1(LEGACY_PARAMS)
-    curve_n = int(secp256k1.curve.n)
-    range_end = curve_n - 1
-    if range_start >= range_end:
-        raise ValueError("--range_start >= curve.n")
 
-    unique_priv_keys = secp256k1.generate_unique_keys(total_keys, range_start, range_end)
+    unique_priv_keys = secp256k1.generate_unique_keys(total_keys)
     double_points = secp256k1.get_double_points()
     cond_counter = Counter()
 
@@ -139,12 +129,10 @@ def parse_args():
     )
     p.add_argument("--curve_mode", type=str, default="test")
     p.add_argument("--total_keys", type=int, default=100_000)
-    p.add_argument("--range_start", type=int, default=1)
     p.add_argument("--data_out", type=str, default="")
     p.add_argument("--stats_out", type=str, default="")
     p.add_argument("--filter_condition", type=str, default=None)
     p.add_argument("--top_key_count", type=int, default=5000)
-    p.add_argument("--seed", type=int, default=None)
     p.add_argument("--no_progress", action="store_true")
     return p.parse_args()
 
@@ -154,12 +142,10 @@ def main():
     generate_dataset(
         curve_mode=args.curve_mode,
         total_keys=args.total_keys,
-        range_start=args.range_start,
         data_out=args.data_out,
         stats_out=args.stats_out,
         filter_condition=args.filter_condition,
         top_key_count=args.top_key_count,
-        seed=args.seed,
         show_progress=not args.no_progress,
     )
 
