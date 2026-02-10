@@ -127,13 +127,13 @@ def parse_args():
         description="Synthetic key set generation with CSV output and statistics.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    p.add_argument("--curve_mode", type=str, default="test")
-    p.add_argument("--total_keys", type=int, default=100_000)
-    p.add_argument("--data_out", type=str, default="")
-    p.add_argument("--stats_out", type=str, default="")
-    p.add_argument("--filter_condition", type=str, default=None)
-    p.add_argument("--top_key_count", type=int, default=5000)
-    p.add_argument("--no_progress", action="store_true")
+    p.add_argument("--curve_mode", type=str, default="test", help="Elliptic curve mode (test or legacy)")
+    p.add_argument("--total_keys", type=int, default=100_000, help="Total unique private keys to generate")
+    p.add_argument("--data_out", type=str, default="", help="Output CSV file for key data")
+    p.add_argument("--stats_out", type=str, default="", help="Output text file for statistics")
+    p.add_argument("--filter_condition", type=str, default=None, help="Only include keys matching this condition (e.g. '1_2_15_30', '1_2_128_256', etc.)")
+    p.add_argument("--top_key_count", type=int, default=5000, help="Number of top conditions to analyze for coverage")
+    p.add_argument("--no_progress", action="store_true", help="Disable progress output")
     return p.parse_args()
 
 
