@@ -41,6 +41,7 @@ def generate_dataset(
     filter_condition: str,
     top_key_count: int,
     show_progress: bool,
+    min_start_range: int,
 ):
     t0 = time.time()
 
@@ -49,7 +50,7 @@ def generate_dataset(
     else:
         secp256k1 = Secp256k1(LEGACY_PARAMS)
 
-    unique_priv_keys = secp256k1.generate_unique_keys(total_keys)
+    unique_priv_keys = secp256k1.generate_unique_keys(total_keys, min_start_range)
     double_points = secp256k1.get_double_points()
     cond_counter = Counter()
 
@@ -118,13 +119,14 @@ def parse_args():
         description="Synthetic key set generation with CSV output and statistics.",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-    p.add_argument("--curve_mode", type=str, default="test")
-    p.add_argument("--total_keys", type=int, default=100_000)
-    p.add_argument("--data_out", type=str, default="")
-    p.add_argument("--stats_out", type=str, default="")
-    p.add_argument("--filter_condition", type=str, default=None)
-    p.add_argument("--top_key_count", type=int, default=5000)
-    p.add_argument("--no_progress", action="store_true")
+    p.add_argument("--curve_mode", type=str, default="test", help="Elliptic curve mode (test or legacy)")
+    p.add_argument("--total_keys", type=int, default=100_000, help="Total unique private keys to generate")
+    p.add_argument("--data_out", type=str, default="", help="Output CSV file for key data")
+    p.add_argument("--stats_out", type=str, default="", help="Output text file for statistics")
+    p.add_argument("--filter_condition", type=str, default=None, help="Only include keys matching this condition (e.g. '1_2_15_30', '1_2_128_256', etc.)")
+    p.add_argument("--top_key_count", type=int, default=5000, help="Number of top conditions to analyze for coverage")
+    p.add_argument("--no_progress", action="store_true", help="Disable progress output")
+    p.add_argument("--min_start_range", type=int, default=1, help="Minimum start range for private key and k-nonce generation")
     return p.parse_args()
 
 
@@ -138,6 +140,7 @@ def main():
         filter_condition=args.filter_condition,
         top_key_count=args.top_key_count,
         show_progress=not args.no_progress,
+        min_start_range=args.min_start_range,
     )
 
 

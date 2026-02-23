@@ -318,14 +318,16 @@ class Secp256k1:
         hash = hashlib.sha256(hashlib.sha256(message).digest()).digest()
         return int.from_bytes(hash, "big") % self._curve.n
 
-    def sign_message(self, private_key: int, message: bytes) -> Tuple[int, int, int]:
+    def sign_message(self, private_key: int, message: bytes, min_start_range: int) -> Tuple[int, int, int]:
         """Create ECDSA signature for a message using private key."""
         z = self.hash_message(message)
         while True:
             if self._curve.mode == "legacy":
                 k = self._rfc6979_generate_k(private_key, z)
+                if k < min_start_range:
+                    continue
             else: # "test"
-                k = random.randrange(1, self._curve.n - 1)
+                k = random.randrange(min_start_range, self._curve.n - 1)
             x, _ = self.scalar_multiply(k, self._curve.g)
             r = x % self._curve.n
             if r == 0:
@@ -409,11 +411,13 @@ class Secp256k1:
 
         return f"{idx_x1y1_first}_{idx_x2y2_first}_{total_adds}_{idx_x2y2_last}"
 
-    def generate_unique_keys(self, count):
+    def generate_unique_keys(self, count: int, min_start_range: int) -> list[int]:
         """Generate a list of unique random integers within a specified range."""
         seen = set()
         while len(seen) < count:
             candidate = self._generate_private_key()
+            if candidate < min_start_range:
+                continue
             if candidate not in seen:
                 seen.add(candidate)
         return list(seen)
@@ -455,7 +459,7 @@ def print_curve_run(curve: CurveParams, private_key: Optional[int] = None) -> No
     else:
         # For test curves we keep an arbitrary message; z is randomized in hash_message
         message = b"Hello, secp256k1!"
-    signature = ec.sign_message(private_key, message)
+    signature = ec.sign_message(private_key, message, min_start_range=1)
     print("Signature parameters:")
     print(f"  z: {hex(signature[0])[2:]}, {signature[0]}")
     print(f"  r: {hex(signature[1])[2:]}, {signature[1]}")
