@@ -2,10 +2,19 @@
 
 ## 🔍 Overview
 
-This work investigates the possibility of fully inverting a private key from a public key using an available probabilistic private-key topology that supports bidirectional inversion. The study uses machine learning and deep learning to discover hidden meta-invariants based on the topological structure of the private key.
+This project investigates a novel topological approach to the Elliptic Curve Discrete Logarithm Problem (ECDLP), with a focus on the `secp256k1` curve used in Bitcoin and other blockchain systems.
 
-NOTICE!
-This work is in the stage of active development and research; therefore, some sections of this repository are incomplete, and documentation may be unavailable at this stage.
+The core idea is based on the observation that scalar multiplication — the operation used to derive a public key from a private key — produces a deterministic sequence of elliptic curve point additions. This sequence, referred to as the **private key topology**, encodes structural information about the private key in the form of a chain of intermediate curve points. Each private key induces a unique topological fingerprint defined by four parameters `(a, b, c, d)`, which describe the positions of key operations within the addition chain.
+
+The research explores whether this topology can be exploited to narrow down or reconstruct the private key from its public key. Specifically, the work examines:
+
+- The statistical distribution of topological conditions across large sets of private keys (up to 1M keys)
+- The feasibility of bidirectional inversion — restoring a private key given its topology and a known chain of added double-points
+- The application of machine learning and deep learning to detect hidden meta-invariants embedded in the topological structure
+
+Experiments are conducted on both a small test curve and the full-scale `secp256k1` (legacy) curve. Datasets, statistical analyses, and ML/DL notebooks are provided for reproducibility.
+
+> **NOTICE:** This work is in active development and research. Some sections of this repository are incomplete, and documentation may be unavailable at this stage.
 
 ## 📁 Structure
 
@@ -23,18 +32,13 @@ ECDLP-Research/
 │   │   ├── generate_data.py                  # Script to generate data into local CSV file
 │   │   ├── restore_private_key.py            # Script for private key restoring based on the hidden added points chain from the topology
 │   │   ├── instructions.txt                  # Instructions on how to use the scripts from the 'utils' folder
-│   │   ├── topology_counter.py               # Script for counting unique topologies defined by parameters (a, b, c, d)
-│   │   ├── ...
-│   │   └── ...
+│   │   └── topology_counter.py               # Script for counting unique topologies defined by parameters (a, b, c, d)
 ├── data/
 │   ├── key_list_stats_20260131200024.txt     # A file that includes statistics for 100K keys based on legacy curve (generated on Local env)
 │   ├── key_list_stats_20260131204250.txt     # A file that includes statistics for 1M keys based on test curve (generated on Local env)
 │   ├── key_list_stats_20260131191955.txt     # A file that includes statistics for 100K keys based on legacy curve (generated on Kaggle env)
-│   ├── key_list_stats_20260131191633.txt     # A file that includes statistics for 1M keys based on test curve (generated on Kaggle env)
-│   ├── ...
-│   └── ...
+│   └── key_list_stats_20260131191633.txt     # A file that includes statistics for 1M keys based on test curve (generated on Kaggle env)
 └── docs/
-    ├── Topology approach description.pdf     # A Statistical and Topological Analysis of Private Key Distributions
     └── ...
 ```
 
