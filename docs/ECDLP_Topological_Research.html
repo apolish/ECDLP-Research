@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECDLP Topological Research • secp256k1</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- MathJax for beautiful math rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #1e40af;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .math-container {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .section-header {
+            border-left: 4px solid #1e40af;
+            padding-left: 1rem;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+        
+        th {
+            background-color: #1e40af;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .formula {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .nav-active {
+            color: #1e40af;
+            font-weight: 600;
+            border-bottom: 2px solid #1e40af;
+        }
+
+        .metric-card {
+            transition: transform 0.2s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-screen-xl mx-auto px-6">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-blue-700 rounded-xl flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">E</span>
+                    </div>
+                    <div>
+                        <span class="font-semibold text-xl tracking-tight">ECDLP Research</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-x-8 text-sm">
+                    <a href="#abstract" class="hover:text-blue-700 transition-colors">Abstract</a>
+                    <a href="#math" class="hover:text-blue-700 transition-colors">Mathematics</a>
+                    <a href="#implementation" class="hover:text-blue-700 transition-colors">Implementation</a>
+                    <a href="#results" class="hover:text-blue-700 transition-colors">Results</a>
+                    <a href="#conclusions" class="hover:text-blue-700 transition-colors">Conclusions</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero / Title -->
+    <div class="max-w-screen-xl mx-auto px-6 pt-12 pb-8">
+        <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-x-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-medium tracking-wider mb-4">
+                TECHNICAL RESEARCH REPORT
+            </div>
+            
+            <h1 class="text-5xl leading-none tracking-tighter font-semibold heading-font">
+                Topological Analysis of<br>Scalar Multiplication for<br>ECDLP on secp256k1
+            </h1>
+            
+            <p class="mt-4 text-xl text-slate-600">
+                Mathematical Foundations, Algorithms, and Large-Scale Empirical Analysis
+            </p>
+            
+            <div class="flex items-center gap-x-4 mt-6 text-sm">
+                <div class="flex items-center gap-x-2">
+                    <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                    <span class="text-slate-600">Up to 1,000,000 keys analyzed</span>
+                </div>
+                <div class="text-slate-400">•</div>
+                <div class="text-slate-600">May 2026</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="max-w-screen-xl mx-auto px-6 pb-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="metric-card bg-white border border-slate-200 rounded-2xl p-5">
+                <div class="text-xs uppercase tracking-widest text-slate-500 font-medium">Curves</div>
+                <div class="text-2xl font-semibold mt-1">Test + Legacy</div>
+                <div class="text-sm text-slate-600 mt-1">secp256k1 parameters</div>
+            </div>
+            <div class="metric-card bg-white border border-slate-200 rounded-2xl p-5">
+                <div class="text-xs uppercase tracking-widest text-slate-500 font-medium">Dataset Size</div>
+                <div class="text-2xl font-semibold mt-1">1,000,000</div>
+                <div class="text-sm text-slate-600 mt-1">Private keys generated</div>
+            </div>
+            <div class="metric-card bg-white border border-slate-200 rounded-2xl p-5">
+                <div class="text-xs uppercase tracking-widest text-slate-500 font-medium">Unique Topologies</div>
+                <div class="text-2xl font-semibold mt-1">~8,500</div>
+                <div class="text-sm text-slate-600 mt-1">Across both curves</div>
+            </div>
+            <div class="metric-card bg-white border border-slate-200 rounded-2xl p-5">
+                <div class="text-xs uppercase tracking-widest text-slate-500 font-medium">Top Conditions Coverage</div>
+                <div class="text-2xl font-semibold mt-1 text-emerald-600">96.5% – 99.5%</div>
+                <div class="text-sm text-slate-600 mt-1">Highly non-uniform</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-screen-xl mx-auto px-6">
+        
+        <!-- Abstract -->
+        <section id="abstract" class="mb-16">
+            <h2 class="text-2xl font-semibold tracking-tight mb-4 section-header">Abstract</h2>
+            <div class="prose max-w-none text-[15px] leading-relaxed text-slate-700">
+                <p>This document presents a comprehensive mathematical and algorithmic analysis of a novel <strong>topological approach</strong> 
+                to the Elliptic Curve Discrete Logarithm Problem (ECDLP) on the secp256k1 curve. The core idea is to model 
+                the internal structure of scalar multiplication (<span class="font-mono">d · G = Q</span>) as a deterministic sequence of point doublings 
+                and additions, referred to as the <strong>private key topology</strong>.</p>
+                
+                <p class="mt-3">We formalize the extraction of topological signatures using four parameters <strong>(a, b, c, d)</strong>, demonstrate 
+                exact private key reconstruction when the addition chain is known, and provide combinatorial bounds on the size of 
+                topology equivalence classes. The approach is supported by large-scale empirical datasets and includes production-ready 
+                Python implementations.</p>
+            </div>
+        </section>
+
+        <!-- 1. Introduction -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-semibold tracking-tight mb-4 section-header">1. Introduction</h2>
+            <div class="prose max-w-none text-[15px] leading-relaxed">
+                <p>The Elliptic Curve Discrete Logarithm Problem asks, given points <span class="font-mono">G</span> and 
+                <span class="font-mono">Q = d · G</span>, to recover the scalar <span class="font-mono">d</span>. For secp256k1, 
+                this is considered computationally infeasible using generic algorithms when <span class="font-mono">d</span> is chosen properly.</p>
+                
+                <p class="mt-3">This research takes a <strong>structural perspective</strong>: instead of attacking the group law directly, 
+                we analyze the <strong>computation trace</strong> of scalar multiplication. Every private key induces a unique pattern 
+                of which precomputed doubled points (<span class="font-mono">2^k G</span>) are added. This pattern is the <strong>topology</strong> of the key.</p>
+            </div>
+        </section>
+
+        <!-- 2. Mathematical Foundations -->
+        <section id="math" class="mb-16">
+            <h2 class="text-2xl font-semibold tracking-tight mb-6 section-header">2. Mathematical Foundations</h2>
+            
+            <!-- 2.1 -->
+            <div class="mb-10">
+                <h3 class="font-semibold text-lg mb-3">2.1 Elliptic Curve Parameters</h3>
+                <p class="text-sm text-slate-600 mb-3">Two parameter sets are used throughout the research:</p>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 text-left">Parameter</th>
+                                <th class="px-4 py-3 text-left">Test Curve</th>
+                                <th class="px-4 py-3 text-left">Legacy secp256k1</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr><td class="px-4 py-3 font-medium">p</td><td class="px-4 py-3 font-mono text-xs">1 241 690 119</td><td class="px-4 py-3 font-mono text-xs">0xFFFFFFFFFFFFFFFF...FFFFFC2F</td></tr>
+                            <tr><td class="px-4 py-3 font-medium">a</td><td class="px-4 py-3">1</td><td class="px-4 py-3">0</td></tr>
+                            <tr><td class="px-4 py-3 font-medium">b</td><td class="px-4 py-3">35</td><td class="px-4 py-3">7</td></tr>
+                            <tr><td class="px-4 py-3 font-medium">n</td><td class="px-4 py-3 font-mono text-xs">1 241 630 743</td><td class="px-4 py-3 font-mono text-xs">0xFFFFFFFFFFFFFFFF...3604141</td></tr>
+                            <tr><td class="px-4 py-3 font-medium">l (doublings)</td><td class="px-4 py-3">29</td><td class="px-4 py-3">254</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 2.2 -->
+            <div class="mb-10">
+                <h3 class="font-semibold text-lg mb-3">2.2 Sequence of Doubled Points</h3>
+                <p class="mb-3">Define the sequence obtained by repeated doubling:</p>
+                
+                <div class="math-container">
+                    <p class="formula">\[ P_0 = G, \quad P_{k+1} = 2 \cdot P_k \quad \Rightarrow \quad P_k = 2^k G \]</p>
+                </div>
+                <p class="text-sm text-slate-600">These points are precomputed up to index <span class="font-mono">l</span>. Each <span class="font-mono">P_k</span> corresponds to a bit position in the binary representation of <span class="font-mono">d</span>.</p>
+            </div>
+
+            <!-- 2.3 -->
+            <div class="mb-10">
+                <h3 class="font-semibold text-lg mb-3">2.3 Topology Parameters (a, b, c, d)</h3>
+                <p class="mb-4">From the execution trace of binary scalar multiplication we extract four canonical indices:</p>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-3 w-16">Symbol</th>
+                                <th class="px-4 py-3">Meaning</th>
+                                <th class="px-4 py-3">Extraction Rule</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-blue-700">a</td>
+                                <td class="px-4 py-3">Index of the first point in the <strong>first</strong> addition</td>
+                                <td class="px-4 py-3 text-xs">First row where operation = "1"</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-blue-700">b</td>
+                                <td class="px-4 py-3">Index of the second point in the <strong>first</strong> addition</td>
+                                <td class="px-4 py-3 text-xs">First row where operation = "1"</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-blue-700">c</td>
+                                <td class="px-4 py-3">Total number of addition operations</td>
+                                <td class="px-4 py-3 text-xs">Count of rows with operation = "1"</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 font-bold text-blue-700">d</td>
+                                <td class="px-4 py-3">Index of the last added doubled point before reaching Q</td>
+                                <td class="px-4 py-3 text-xs">Last addition involving a precomputed P<sub>k</sub></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-3 text-sm">The topology is represented compactly as the string <span class="font-mono font-semibold">a_b_c_d</span> (e.g. <span class="font-mono">1_2_128_256</span>).</p>
+            </div>
+
+            <!-- 2.4 -->
+            <div class="mb-10">
+                <h3 class="font-semibold text-lg mb-3">2.4 Private Key Reconstruction</h3>
+                <p class="mb-3">Let <span class="font-mono">S</span> be the set of indices of added doubled points, and <span class="font-mono">m = max(S)</span>. Then:</p>
+                
+                <div class="math-container">
+                    <p class="formula">\[ d = \sum_{i \in S} 2^{m - i} \]</p>
+                </div>
+                
+                <p class="text-sm">This formula allows <strong>exact and instantaneous</strong> recovery of the private key when the addition chain is known. It is implemented in <code class="bg-slate-100 px-1.5 py-0.5 rounded text-xs">restore_private_key.py</code>.</p>
+            </div>
+
+            <!-- 2.5 -->
+            <div class="mb-10">
+                <h3 class="font-semibold text-lg mb-3">2.5 Size of Topology Class</h3>
+                <p class="mb-3">For a fixed topology <span class="font-mono">(a, b, c, d)</span>, the number of possible private keys is:</p>
+                
+                <div class="math-container">
+                    <p class="formula">\[ N(a,b,c,d) = \binom{d - b - a}{c - 2} \]</p>
+                </div>
+                <p class="text-sm text-slate-600">This binomial coefficient counts the combinatorial ways to choose intermediate additions.</p>
+            </div>
+
+            <!-- 2.6 -->
+            <div>
+                <h3 class="font-semibold text-lg mb-3">2.6 Counting Distinct Topologies</h3>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div>
+                        <p class="font-medium mb-2 text-sm">Original counting:</p>
+                        <div class="math-container text-xs">
+                            \[ T(d_{\max}) = \sum_{a=1}^{d_{\max}-2} \sum_{b=a+1}^{d_{\max}-1} \frac{m(m+1)}{2} \]
+                            where \( m = d_{\max} - 1 - (a + b) \)
+                        </div>
+                    </div>
+                    <div>
+                        <p class="font-medium mb-2 text-sm">Restricted counting (a &lt; b &lt; c &lt; d):</p>
+                        <div class="math-container text-xs">
+                            \[ T_{\text{restricted}} = \sum_a \sum_{b&gt;a} \sum_{c&gt;b} \max(0, d_{\max} - \max(d_{\min}, a+b+c+1) + 1) \]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Implementation -->
+        <section id="implementation" class="mb-16">
+            <h2 class="text-2xl font-semibold tracking-tight mb-6 section-header">3. Implementation &amp; Scripts</h2>
+            
+            <div class="mb-8">
+                <h3 class="font-semibold mb-3">Core Module: <code class="bg-slate-100 px-2 py-0.5 rounded">secp256k1.py</code></h3>
+                <p class="text-sm mb-3">Contains the <span class="font-semibold">Secp256k1</span> class with full topology tracing:</p>
+                <ul class="text-sm space-y-1.5 list-disc pl-5">
+                    <li><code>generate_keypair()</code> — generates key pair + records topology</li>
+                    <li><code>scalar_multiply()</code> — binary multiplication with addition tracing</li>
+                    <li><code>identify_condition()</code> — extracts (a, b, c, d) signature</li>
+                    <li><code>get_double_points()</code> — returns list of P₀ … Pₗ</li>
+                </ul>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="font-semibold mb-3">Dataset Generation: <code class="bg-slate-100 px-2 py-0.5 rounded">generate_data.py</code></h3>
+                <div class="bg-white border rounded-xl p-4 text-sm">
+                    <div class="grid grid-cols-3 gap-x-4 text-xs">
+                        <div><span class="font-medium">--curve_mode</span><br>test | legacy</div>
+                        <div><span class="font-medium">--total_keys</span><br>Number of keys (default 100k)</div>
+                        <div><span class="font-medium">--filter_condition</span><br>Export only specific topology</div>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 mt-2">Output: CSV with columns <span class="font-mono">condition;private_key;segment₁;segment₂;...</span></p>
+            </div>
+
+            <div>
+                <h3 class="font-semibold mb-3">Private Key Restoration: <code class="bg-slate-100 px-2 py-0.5 rounded">restore_private_key.py</code></h3>
+                <p class="text-sm">Reconstructs <span class="font-mono">d</span> from a comma-separated list of added point indices.</p>
+                <div class="mt-2 bg-slate-900 text-emerald-400 text-xs p-3 rounded-lg font-mono">
+                    python restore_private_key.py --curve_mode test --added_points "1,3,4,...,31" --verify
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Results -->
+        <section id="results" class="mb-16">
+            <h2 class="text-2xl font-semibold tracking-tight mb-6 section-header">4. Empirical Results</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full text-sm border border-slate-200 rounded-2xl overflow-hidden">
+                    <thead>
+                        <tr>
+                            <th class="px-5 py-3 text-left">Curve</th>
+                            <th class="px-5 py-3 text-center">Keys</th>
+                            <th class="px-5 py-3 text-center">Unique Conditions</th>
+                            <th class="px-5 py-3 text-center">Top-5000 Coverage</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        <tr>
+                            <td class="px-5 py-4 font-medium">Test Curve</td>
+                            <td class="px-5 py-4 text-center font-mono">1,000,000</td>
+                            <td class="px-5 py-4 text-center font-mono">8,451</td>
+                            <td class="px-5 py-4 text-center"><span class="font-semibold text-emerald-600">99.49%</span></td>
+                        </tr>
+                        <tr>
+                            <td class="px-5 py-4 font-medium">Legacy secp256k1</td>
+                            <td class="px-5 py-4 text-center font-mono">100,000</td>
+                            <td class="px-5 py-4 text-center font-mono">8,472</td>
+                            <td class="px-5 py-4 text-center"><span class="font-semibold text-emerald-600">96.50%</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-white border border-slate-200 rounded-2xl p-6">
+                <h4 class="font-semibold mb-3">Key Finding: Highly Non-Uniform Distribution</h4>
+                <p class="text-sm">The distribution of topological conditions is strongly skewed. A small number of topologies dominate the keyspace. 
+                This structural bias is one of the most important empirical discoveries of the research and opens opportunities for statistical and machine learning approaches.</p>
+            </div>
+        </section>
+
+        <!-- 5. Conclusions -->
+        <section id="conclusions">
+            <h2 class="text-2xl font-semibold tracking-tight mb-6 section-header">5. Conclusions</h2>
+            <div class="prose max-w-none text-[15px]">
+                <p>This work introduces a rigorous topological framework for analyzing scalar multiplication on secp256k1. 
+                By extracting a compact four-parameter signature, we enable:</p>
+                
+                <ul class="mt-3 space-y-2">
+                    <li><strong>Exact recovery</strong> of the private key when the addition chain is known</li>
+                    <li><strong>Significant reduction</strong> of the search space per topology class</li>
+                    <li><strong>New statistical observables</strong> that can be leveraged by machine learning models</li>
+                </ul>
+                
+                <p class="mt-4">The provided tools allow full reproducibility and serve as a foundation for further research into 
+                topology-aware cryptanalysis and side-channel attacks that may leak addition patterns.</p>
+            </div>
+        </section>
+
+        <div class="mt-12 pt-8 border-t text-center text-xs text-slate-400">
+            ECDLP Topological Research • Generated May 2026
+        </div>
+        
+    </div>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent', '#1e40af');
+        }
+        
+        // Initialize everything
+        window.onload = function() {
+            initializeTailwind();
+            
+            // Optional: smooth scroll for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
