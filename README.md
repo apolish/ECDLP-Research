@@ -14,7 +14,8 @@ The research explores whether this topology can be exploited to narrow down or r
 
 Experiments are conducted on both a small test curve and the full-scale `secp256k1` (legacy) curve. Datasets, statistical analyses, and ML/DL notebooks are provided for reproducibility.
 
-> **NOTICE:** This work is not an active development due to a lack of perspective. Some sections of this repository are incomplete, and documentation may be unavailable at this stage.
+> ⚠️ **NOTICE:** This is exploratory work on the topological structure of ECDLP. It does **not**
+> threaten secp256k1 or any deployed system, and it does not claim to.
 
 ## 📁 Structure
 
@@ -39,7 +40,7 @@ ECDLP-Research/
 │   ├── key_list_stats_20260131191955.txt     # A file that includes statistics for 100K keys based on legacy curve (generated on Kaggle env)
 │   └── key_list_stats_20260131191633.txt     # A file that includes statistics for 1M keys based on test curve (generated on Kaggle env)
 └── docs/
-    └── ...
+    └── ECDLP_Topological_Research.html       # A file that includes describes the topological analysis of scalar multiplication for ECDLP on secp256k1
 ```
 
 ## 📘 Link
@@ -61,4 +62,4 @@ Tracking and monitoring tasks related to the current project can be found here:
 
 [![Go to JIRA](https://img.shields.io/badge/JIRA-Visit-blue)](https://cryptonsystemslab.atlassian.net/jira/core/projects/CSL/board?filter=&groupBy=status&atlOrigin=eyJpIjoiZWYwNGI4ODlhYmZjNDdkNGIwMGM3NWUwNzk0MTBjNGYiLCJwIjoiaiJ9)
 
-### STATUS: Not active
+### STATUS: Active
